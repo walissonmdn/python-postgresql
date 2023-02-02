@@ -1,4 +1,5 @@
 from classes.book.window1 import *
+from classes.person.window1 import *
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5 import uic
 
@@ -8,7 +9,12 @@ class initialwindow(QMainWindow):
         uic.loadUi("ui\\initial_window.ui", self)
         self.show()
         self.pbLivros.clicked.connect(self.book_window1)
+        self.pbPessoas.clicked.connect(self.person_window1)
 
     def book_window1(self):
         self.book_window1_object = book_window1()
+        self.close()
+
+    def person_window1(self):
+        self.person_window1_object = person_window1()
         self.close()
