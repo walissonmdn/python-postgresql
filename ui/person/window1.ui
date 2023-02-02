@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Livros</string>
+   <string>Pessoas</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pbDeletar">
