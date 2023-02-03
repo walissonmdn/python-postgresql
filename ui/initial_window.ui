@@ -43,7 +43,7 @@
      <string>Pessoas</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pbPedidos">
+   <widget class="QPushButton" name="pbEmprestimos">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -53,7 +53,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Pedidos</string>
+     <string>Empréstimos</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">

@@ -1,7 +1,7 @@
 from classes.person.people_table import *
 from classes.person.window1 import *
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 class person_window2(QMainWindow):
     def __init__(self, id_pessoa, nome, idade, cpf):
@@ -23,16 +23,32 @@ class person_window2(QMainWindow):
             
         
     def insert(self):
-        self.person = person(self.leNome.text(), int(self.leIdade.text()), self.leCpf.text())
-        self.person.insert_person()
-        QMessageBox.about(self, "Alerta", "Dados inseridos no banco de dados.")
-        self.close()
+        try:
+            leIdade = int(self.leIdade.text())
+            conversion_success = True
+        except:
+            conversion_success = False
+            QMessageBox.about(self, "Alerta", 'O campo "Idade" só aceita número inteiro como entrada.')
+
+        if conversion_success == True:
+            self.person = person(self.leNome.text(), leIdade, self.leCpf.text())
+            self.person.insert_person()
+            QMessageBox.about(self, "Sucesso", "Dados inseridos no banco de dados.")
+            self.close()
 
     def atualizar(self):
-        self.person = person(self.leNome.text(), int(self.leIdade.text()), self.leCpf.text())
-        self.person.update_person(self.id_pessoa)
-        QMessageBox.about(self, "Alerta", "Dados modificados no banco de dados.")
-        self.close()
+        try:
+            leIdade = int(self.leIdade.text())
+            conversion_success = True
+        except:
+            conversion_success = False
+            QMessageBox.about(self, "Alerta", 'O campo "Idade" só aceita número inteiro como entrada.')
+
+        if conversion_success == True:
+            self.person = person(self.leNome.text(), int(self.leIdade.text()), self.leCpf.text())
+            self.person.update_person(self.id_pessoa)
+            QMessageBox.about(self, "Sucesso", "Dados modificados no banco de dados.")
+            self.close()
 
 
     

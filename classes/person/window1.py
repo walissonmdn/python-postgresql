@@ -1,7 +1,7 @@
 from classes.person.people_table import *
 from classes.person.window2 import *
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 class person_window1(QMainWindow):
     def __init__(self):
@@ -17,18 +17,8 @@ class person_window1(QMainWindow):
         self.pbInserir.clicked.connect(self.insert)
         self.pbExibir.clicked.connect(self.show_people)
         self.pbDeletar.clicked.connect(self.delete)
-        self.pbAtualizar.clicked.connect(self.update)
+        self.pbAtualizar.clicked.connect(self.update)    
 
-    def delete(self):
-        try:
-            id_pessoa = self.twDatabase.item(self.twDatabase.currentRow(),0).text() 
-            self.person = person(None, None, None)
-            self.person.delete_person(id_pessoa)
-            self.twDatabase.removeRow(self.twDatabase.currentRow()) # Removes only in the widget
-        except:
-            QMessageBox.about(self, "Atenção!", "Nenhuma pessoa selecionada.")
-
-        
     def insert(self):
         # Instantiate another window to make the insertion.
         self.insert_person = person_window2(None, None, None, None)
@@ -36,13 +26,31 @@ class person_window1(QMainWindow):
     def update(self):
         try:
             id_pessoa = self.twDatabase.item(self.twDatabase.currentRow(),0).text()
+            row_selected = True # 
+        except:
+            row_selected = False
+            QMessageBox.about(self, "Atenção!", "Nenhuma pessoa selecionada.")
+
+        if row_selected == True:
+            id_pessoa = self.twDatabase.item(self.twDatabase.currentRow(),0).text()
             nome = self.twDatabase.item(self.twDatabase.currentRow(),1).text()
             idade = self.twDatabase.item(self.twDatabase.currentRow(),2).text()
             cpf = self.twDatabase.item(self.twDatabase.currentRow(),3).text()
-            
             self.update_window = person_window2(id_pessoa, nome, idade, cpf)
+
+    def delete(self):
+        try:
+            id_pessoa = self.twDatabase.item(self.twDatabase.currentRow(),0).text()
+            row_selected = True # 
         except:
+            row_selected = False
             QMessageBox.about(self, "Atenção!", "Nenhuma pessoa selecionada.")
+ 
+        if row_selected == True:
+            self.person = person(None, None, None)
+            delete_sucess = self.person.delete_person(id_pessoa)
+            if delete_sucess == True:
+                self.twDatabase.removeRow(self.twDatabase.currentRow()) # Removes only in the widget
 
     def show_people(self):
         person_instance = person(None, None, None)
